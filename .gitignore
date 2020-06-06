@@ -108,3 +108,7 @@ dist
 .floobit
 .floo
 .flooignore
+
+# Keys
+mm.js
+spotify.js
