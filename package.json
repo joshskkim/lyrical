@@ -18,10 +18,14 @@
   },
   "homepage": "https://github.com/joshskkim/lyrical#readme",
   "dependencies": {
+    "axios": "^0.19.2",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "nodemon": "^2.0.4",
+    "querystring": "^0.2.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "spotify-web-api-js": "^1.4.0"
