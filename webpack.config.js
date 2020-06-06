@@ -50,8 +50,8 @@ module.exports = {
   //   minimize: true,
   // },
   output: {
-    path: path.resolve(__dirname, 'public'),
-    fileName: 'lyrical.js',
+    path: path.resolve(__dirname, 'public/dist'),
+    fileName: 'bundle.js',
     publicPath: '/public/'
   },
 }
