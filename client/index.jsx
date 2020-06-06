@@ -1,12 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
+import App from './components/App.jsx';
 
-const App = () => {
-  return (
-    <div>
-      Hello
-    </div>
-  )
-}
 
 render(<App />, document.getElementById('app'));
