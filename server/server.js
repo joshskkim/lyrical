@@ -1,10 +1,11 @@
-const bodyParser = require('body-parser');
-const compression = require('compression');
+// const bodyParser = require('body-parser');
+// const compression = require('compression');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const express = require('express');
 const path = require('path');
 const querystring = require('querystring');
+const request = require('request');
 
 // SPOTIFY AUTHENTICATION VARIABLES
 const { client_id, client_secret } = require('./spotify.js');
@@ -27,9 +28,9 @@ const app = express();
 
 app.use(express.static(path.join(__dirname, '../public/')))
    .use(cors())
-   .use(compression())
-   .use(bodyParser.urlencoded({ extended: true }))
-   .use(bodyParser.json())
+  //  .use(compression())
+  //  .use(bodyParser.urlencoded({ extended: true }))
+  //  .use(bodyParser.json())
    .use(cookieParser());
 
 // LOGIN ROUTE
@@ -62,6 +63,7 @@ app.get('/callback', (req, res) => {
   } else {
     res.clearCookie(stateKey);
     const authOptions = {
+      method: 'post',
       url: 'https://accounts.spotify.com/api/token',
       form: {
         code: code,
@@ -69,12 +71,12 @@ app.get('/callback', (req, res) => {
         grant_type: 'authorization_code'
       },
       headers: {
-        'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64'))
+        'Authorization': 'Basic ' + (Buffer.from(client_id + ':' + client_secret).toString('base64'))
       },
       json: true
     };
 
-    axios.post(authOptions, (error, response, body) => {
+    request.post(authOptions, (error, response, body) => {
       if (!error && response.statusCode === 200) {
 
         let access_token = body.access_token,
@@ -87,7 +89,7 @@ app.get('/callback', (req, res) => {
         };
 
         // use the access token to access the Spotify Web API
-        axios.get(options, function(error, response, body) {
+        request.get(options, function(error, response, body) {
           console.log(body);
         });
 
@@ -112,7 +114,7 @@ app.get('/refresh_token', (req, res) => {
   const refresh_token = req.query.refresh_token;
   const authOptions = {
     url: 'https://accounts.spotify.com/api/token',
-    headers: { 'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64')) },
+    headers: { 'Authorization': 'Basic ' + (Buffer.from(client_id + ':' + client_secret).toString('base64')) },
     form: {
       grant_type: 'refresh_token',
       refresh_token: refresh_token
@@ -120,7 +122,7 @@ app.get('/refresh_token', (req, res) => {
     json: true
   };
 
-  axios.post(authOptions, (error, response, body) => {
+  request.post(authOptions, (error, response, body) => {
     if (!error && response.statusCode === 200) {
       var access_token = body.access_token;
       res.send({
