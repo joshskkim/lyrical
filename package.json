@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --config webpack.config.js -w",
-    "start": "nodemon server/index.js --watch -i client"
+    "start": "nodemon server/index.js -i client"
   },
   "repository": {
     "type": "git",
