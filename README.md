@@ -9,4 +9,4 @@ npm install
 ```
 
 ## Author
-* **Joshua Kim** [joshskkim](https://github.com/joshskkim)
+* **Joshua Kim** - [joshskkim](https://github.com/joshskkim)
