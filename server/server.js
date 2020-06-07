@@ -110,7 +110,7 @@ app.get('/callback', (req, res) => {
 });
 
 // GET A NEW ACCESS TOKEN
-app.get('/refresh_token', function(req, res) {
+app.get('/refresh_token', (req, res) => {
   const refresh_token = req.query.refresh_token;
   const authOptions = {
     url: 'https://accounts.spotify.com/api/token',
@@ -122,7 +122,7 @@ app.get('/refresh_token', function(req, res) {
     json: true
   };
 
-  request.post(authOptions, function(error, response, body) {
+  request.post(authOptions, (error, response, body) => {
     if (!error && response.statusCode === 200) {
       const access_token = body.access_token;
       res.send({
