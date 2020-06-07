@@ -38,7 +38,7 @@ app.get('/login', (req, res) => {
   const state = generateRandomString(16);
   res.cookie(stateKey, state);
 
-  const scope = 'user-read-private user-read-email';
+  const scope = 'user-read-private user-read-email user-read-playback-state user-read-currently-playing streaming';
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',
@@ -109,8 +109,8 @@ app.get('/callback', (req, res) => {
   }
 });
 
-// REQUEST ACCESS FROM REFRESH TOKEN
-app.get('/refresh_token', (req, res) => {
+// GET A NEW ACCESS TOKEN
+app.get('/refresh_token', function(req, res) {
   const refresh_token = req.query.refresh_token;
   const authOptions = {
     url: 'https://accounts.spotify.com/api/token',
@@ -122,9 +122,9 @@ app.get('/refresh_token', (req, res) => {
     json: true
   };
 
-  request.post(authOptions, (error, response, body) => {
+  request.post(authOptions, function(error, response, body) {
     if (!error && response.statusCode === 200) {
-      var access_token = body.access_token;
+      const access_token = body.access_token;
       res.send({
         'access_token': access_token
       });
