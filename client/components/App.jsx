@@ -4,28 +4,26 @@ import axios from 'axios';
 import "regenerator-runtime/runtime.js";
 import SDK from './SDK.jsx';
 import Player from './Player.jsx';
-// import Spotify from 'spotify-web-api-js';
-
-// const spotify = new Spotify();
 
 const App = () => {
-  const [login, setLogin] = useState('');
-  const [refresh, setRefresh] = useState('');
-  const [item, setItem] = useState({});
-  const [is_playing, setPlaying] = useState('Paused');
-  const [progress_ms, setProgress] = useState(0);
+  const [config, setConfig] = useState({
+    login: '',
+    refresh: '',
+    item: {},
+    is_playing: 'Paused',
+    progres_ms: 0
+  })
 
-  const getNowPlaying = (token) => {
+  const getNowPlaying = async(token) => {
     const authStr = 'Bearer '.concat(token);
-    axios.get('https://api.spotify.com/v1/me/player/currently-playing', {
-      headers: {
-        'Authorization': authStr,
-      }
-    }).then((data) => {
-      setItem(data.item);
-      setPlaying(data.is_playing);
-      setProgress(data.progress_ms);
-    })
+
+    const res = await axios.get('https://api.spotify.com/v1/me/player/currently-playing', {
+          headers: {
+            'Authorization': authStr,
+          }
+        });
+    const { data } = res;
+    return data;
   }
 
   const getHashParams = () => {
@@ -42,24 +40,37 @@ const App = () => {
   }
 
   const handleRefresh = (e) => {
-    axios.get('/refresh_token', {
-      'refresh_token': refresh
-    }).then((data) => {
-      setLogin(data.access_token);
-    })
+    const getToken = async() => {
+      const res = await axios.get('/refresh_token', { 'refresh_token': refresh });
+      const newToken = await res.json();
+      setConfig({
+        login: newToken,
+      })
+    }
+
   }
 
   useEffect(() => {
     let hash = getHashParams();
     let loginToken = hash.access_token;
+    const updateConfig = async() => {
+      const res = await getNowPlaying(loginToken);
+      setConfig({
+        login: loginToken,
+        refresh: hash.refresh_token,
+        item: res.item,
+        is_playing: res.is_playing,
+        progress_ms: res.progress_ms
+      });
+    }
 
     if (loginToken) {
-      setLogin(loginToken);
-      setRefresh(hash.refresh_token);
-      // spotify.setAccessToken(login);
-      getNowPlaying(loginToken);
+      updateConfig();
     }
+
   }, []);
+
+  const { login, refresh, item, is_playing, progress_ms } = config;
 
   return (
     <div className="App">
@@ -82,6 +93,13 @@ const App = () => {
           >
             Refresh Token
           </button>
+          {item && (
+            <Player
+              item={item}
+              is_playing={is_playing}
+              progress_ms={progress_ms}
+            />
+          )}
         </div>
       )}
     </div>
