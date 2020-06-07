@@ -12,6 +12,12 @@ const Player = (props) => {
     width: (progress_ms * 100 / item.duration_ms) + '%'
   };
 
+  const showTime = (ms) => {
+    const min = Math.floor(ms / 60000);
+    const sec = ((ms % 60000) / 1000).toFixed(0);
+    return `${min}:${sec < 10 ? '0': ''}${sec}`;
+  }
+
   return (
     <div className={style.mainWrapper}>
       <div className={style.nowPlaying_img}>
@@ -28,10 +34,12 @@ const Player = (props) => {
           {is_playing ? "Playing" : "Paused"}
         </div>
         <div className={style.progress}>
+          {showTime(progress_ms)}
           <div
             className={style.progress_bar}
             style={progressBarStyles}
           />
+          {showTime(item.duration_ms)}
         </div>
       </div>
       <div className="background" style={backgroundStyles} />{" "}

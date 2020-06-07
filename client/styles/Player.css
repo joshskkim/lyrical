@@ -27,7 +27,6 @@
 /** Progress **/
 .progress {
   border: 1px solid #eee;
-  height: 6px;
   border-radius: 3px;
   overflow: hidden;
 }

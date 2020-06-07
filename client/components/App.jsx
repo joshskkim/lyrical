@@ -6,13 +6,12 @@ import SDK from './SDK.jsx';
 import Player from './Player.jsx';
 
 const App = () => {
-  const [count, setCount] = useState(0);
   const [config, setConfig] = useState({
     login: '',
     refresh: '',
     item: {},
     is_playing: '',
-    progres_ms: 0
+    progress_ms: 0
   })
 
   const getNowPlaying = async(token) => {
@@ -70,7 +69,7 @@ const App = () => {
 
 
     const id = setInterval(() => {
-      setCount(c => c + 1);
+      updateConfig();
     }, 1000);
     return () => clearInterval(id);
   }, []);
@@ -99,7 +98,7 @@ const App = () => {
           >
             Refresh Token
           </button>
-          {is_playing && (
+          {item && (
           <Player
             item={item}
             is_playing={is_playing}
