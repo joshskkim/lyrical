@@ -1,21 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import "regenerator-runtime/runtime.js";
 
-const hash = window.location.hash
-  .substring(1)
-  .split('&')
-  .reduce((init, item) => {
-    if (item) {
-      let parts = item.split('=');
-      init[parts[0]] = decodeURIComponent(parts[1]);
-    }
-    return init;
-  }, {});
-
-window.location.hash = '';
-
 const App = () => {
-  const [token, setToken] = useState('');
+  const [login, setLogin] = useState('');
+  const [refresh, setRefresh] = useState('');
   const [item, setItem] = useState({});
   const [is_playing, setPlaying] = useState('Paused');
   const [progress_ms, setProgress] = useState(0);
@@ -27,33 +16,54 @@ const App = () => {
   //     })
   // }
 
+  const getHashParams = () => {
+    const hashParams = {};
+    let e, r = /([^&;=]+)=?([^&;]*)/g,
+        q = window.location.hash.substring(1);
+    while ( e = r.exec(q)) {
+       hashParams[e[1]] = decodeURIComponent(e[2]);
+    }
+
+    window.location.hash = '';
+
+    return hashParams;
+  }
+
+  const handleRefresh = (e) => {
+    axios.get('/refresh_token', {
+      'refresh_token': refresh
+    }).then((data) => {
+      setLogin(data.access_token);
+    })
+  }
+
   useEffect(() => {
+    let hash = getHashParams();
     let loginToken = hash.access_token;
 
     if (loginToken) {
-      setToken(loginToken);
-      spotifyAPI.setAccessToken(token);
+      setLogin(loginToken);
+      setRefresh(hash.refresh_token);
+      // spotifyAPI.setAccessToken(token);
     }
   }, []);
 
   return (
     <div className="App">
-      {!token && (
-        <a
-          className="btn btn-primary"
-          href="/login"
-        >
-          Login to Spotify
+      {!login && (
+        <a href="/login">
+          <button>
+            Login to Spotify
+          </button>
         </a>
       )}
-      {token && (
+      {login && (
         <div>
-          YOU LOGGED IN DAWG
-          {/* <Player
-            item={item}
-            is_playing={is_playing}
-            progress_ms={progress_ms}
-          /> */}
+          <button
+            onClick={handleRefresh}
+          >
+            Refresh Token
+          </button>
         </div>
       )}
     </div>
