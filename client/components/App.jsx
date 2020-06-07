@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from 'react';
+import Script from 'react-load-script';
 import axios from 'axios';
 import "regenerator-runtime/runtime.js";
+import Player from './SDK.jsx';
+// import Spotify from 'spotify-web-api-js';
+
+// const spotify = new Spotify();
 
 const App = () => {
   const [login, setLogin] = useState('');
   const [refresh, setRefresh] = useState('');
-  const [item, setItem] = useState({});
-  const [is_playing, setPlaying] = useState('Paused');
-  const [progress_ms, setProgress] = useState(0);
+  // const [item, setItem] = useState({});
+  // const [is_playing, setPlaying] = useState('Paused');
+  // const [progress_ms, setProgress] = useState(0);
 
   // const getNowPlaying = () => {
-  //   spotifyAPI.getMyCurrentPlaybackState()
+  //   spotify.getMyCurrentPlaybackState()
   //     .then((res) => {
   //       console.log(res);
   //     })
@@ -44,7 +49,8 @@ const App = () => {
     if (loginToken) {
       setLogin(loginToken);
       setRefresh(hash.refresh_token);
-      // spotifyAPI.setAccessToken(token);
+      // spotify.setAccessToken(login);
+      // getNowPlaying();
     }
   }, []);
 
@@ -59,6 +65,11 @@ const App = () => {
       )}
       {login && (
         <div>
+          <header>
+            <Player
+              token={login}
+            />
+          </header>
           <button
             onClick={handleRefresh}
           >
