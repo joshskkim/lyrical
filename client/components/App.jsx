@@ -6,11 +6,12 @@ import SDK from './SDK.jsx';
 import Player from './Player.jsx';
 
 const App = () => {
+  const [count, setCount] = useState(0);
   const [config, setConfig] = useState({
     login: '',
     refresh: '',
     item: {},
-    is_playing: 'Paused',
+    is_playing: '',
     progres_ms: 0
   })
 
@@ -34,6 +35,8 @@ const App = () => {
        hashParams[e[1]] = decodeURIComponent(e[2]);
     }
 
+    window.location.hash = '';
+
     return hashParams;
   }
 
@@ -45,7 +48,6 @@ const App = () => {
         login: newToken,
       })
     }
-
   }
 
   useEffect(() => {
@@ -66,6 +68,11 @@ const App = () => {
       updateConfig();
     }
 
+
+    const id = setInterval(() => {
+      setCount(c => c + 1);
+    }, 1000);
+    return () => clearInterval(id);
   }, []);
 
   const { login, refresh, item, is_playing, progress_ms } = config;
@@ -92,7 +99,7 @@ const App = () => {
           >
             Refresh Token
           </button>
-          {item && (
+          {is_playing && (
           <Player
             item={item}
             is_playing={is_playing}

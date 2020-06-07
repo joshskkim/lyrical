@@ -11,7 +11,8 @@ const SDK = (props) => {
         name: 'PLAYER',
         getOAuthToken: cb => {
           cb(token);
-        }
+        },
+        volume: 0.15
       });
 
       // Error handling
@@ -32,14 +33,10 @@ const SDK = (props) => {
       });
 
       // State Updates
-      player.addListener('player_state_changed', ({
-        position,
-        duration,
-        track_window: {current_track}
-      }) => {
-        console.log('Currently Playing: ', current_track);
-        console.log('Position in Song: ', position);
-        console.log('Duration of Song: ', duration);
+      player.addListener('player_state_changed', (state) => {
+        console.log('Currently Playing: ', state.track_window.current_track);
+        console.log('Position in Song: ', state.position);
+        console.log('Duration of Song: ', state.duration);
       });
 
       player.connect()
