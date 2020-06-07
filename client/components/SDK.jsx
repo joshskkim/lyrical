@@ -32,7 +32,12 @@ const Player = (props) => {
         console.log('Device ID has gone offline', device_id);
       });
 
-      player.connect();
+      player.connect()
+        .then(success => {
+          if(success) {
+            console.log('Successful SDK connection to Spotify!');
+          }
+        });
     }
 
   }
