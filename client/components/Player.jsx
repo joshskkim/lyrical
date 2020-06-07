@@ -1,4 +1,5 @@
 import React from 'react';
+import style from '../styles/Player.css';
 
 const Player = (props) => {
   const { item, is_playing, progress_ms } = props;
@@ -12,28 +13,28 @@ const Player = (props) => {
   };
 
   return (
-    <div className="App">
-      <div className="main-wrapper">
-        <div className="now-playing_img">
-          <img src={item.album.images[0].url} />
-        </div>
-        <div className="now-playing_side">
-          <div className="now-playing_name">{item.name}</div>
-          <div className="now-playing_artist">
-            {item.artists[0].name}
-          </div>
-          <div className="now-playing_status">
-            {is_playing ? "Playing" : "Paused"}
-          </div>
-          <div className="progress">
-            <div
-              className="progress_bar"
-              style={progressBarStyles}
-            />
-          </div>
-        </div>
-        <div className="background" style={backgroundStyles} />{" "}
+    <div className={style.mainWrapper}>
+      <div className={style.nowPlaying_img}>
+        <img src={item.album.images[0].url} />
       </div>
+      <div className={style.nowPlaying_side}>
+        <div className={style.nowPlaying_name}>
+          {item.name}
+        </div>
+        <div className={style.nowPlaying_artist}>
+          {item.artists[0].name}
+        </div>
+        <div className={style.nowPlaying_status}>
+          {is_playing ? "Playing" : "Paused"}
+        </div>
+        <div className={style.progress}>
+          <div
+            className={style.progress_bar}
+            style={progressBarStyles}
+          />
+        </div>
+      </div>
+      <div className="background" style={backgroundStyles} />{" "}
     </div>
   );
 }

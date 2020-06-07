@@ -34,8 +34,6 @@ const App = () => {
        hashParams[e[1]] = decodeURIComponent(e[2]);
     }
 
-    window.location.hash = '';
-
     return hashParams;
   }
 
@@ -81,11 +79,12 @@ const App = () => {
           </button>
         </a>
       )}
-      {login && (
+      {(login && item) && (
         <div>
           <header>
             <SDK
               token={login}
+              uri={item.uri}
             />
           </header>
           <button
@@ -94,11 +93,11 @@ const App = () => {
             Refresh Token
           </button>
           {item && (
-            <Player
-              item={item}
-              is_playing={is_playing}
-              progress_ms={progress_ms}
-            />
+          <Player
+            item={item}
+            is_playing={is_playing}
+            progress_ms={progress_ms}
+          />
           )}
         </div>
       )}

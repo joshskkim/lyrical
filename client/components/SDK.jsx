@@ -1,8 +1,9 @@
 import React from 'react';
 import Script from 'react-load-script';
+import axios from 'axios';
 
 const SDK = (props) => {
-  const { token } = props;
+  const { token, uri } = props;
 
   const handleLoad = () => {
     window.onSpotifyWebPlaybackSDKReady = () => {
@@ -19,17 +20,26 @@ const SDK = (props) => {
       player.addListener('account_error', ({ message }) => { console.error(message); });
       player.addListener('playback_error', ({ message }) => { console.error(message); });
 
-      // Playback status updates
-      player.addListener('player_state_changed', state => { console.log(state); });
-
       // Ready
       player.addListener('ready', ({ device_id }) => {
         console.log('Ready with Device ID', device_id);
+        play(device_id);
       });
 
       // Not Ready
       player.addListener('not_ready', ({ device_id }) => {
         console.log('Device ID has gone offline', device_id);
+      });
+
+      // State Updates
+      player.addListener('player_state_changed', ({
+        position,
+        duration,
+        track_window: {current_track}
+      }) => {
+        console.log('Currently Playing: ', current_track);
+        console.log('Position in Song: ', position);
+        console.log('Duration of Song: ', duration);
       });
 
       player.connect()
@@ -39,7 +49,6 @@ const SDK = (props) => {
           }
         });
     }
-
   }
 
   const handleCreate = () => {
@@ -48,6 +57,16 @@ const SDK = (props) => {
 
   const handleError = () => {
     console.log('Error with script');
+  }
+
+  const play = (id) => {
+    const url = 'https://api.spotify.com/v1/me/player/play?device_id='.concat(id);
+    const authStr = 'Bearer '.concat(token);
+    axios.put(url, JSON.stringify({ uris: [uri]}), {
+      headers: {
+        'Authorization': authStr
+      },
+    })
   }
 
   return (
