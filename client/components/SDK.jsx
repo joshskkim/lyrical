@@ -1,7 +1,7 @@
 import React from 'react';
 import Script from 'react-load-script';
 
-const Player = (props) => {
+const SDK = (props) => {
   const { token } = props;
 
   const handleLoad = () => {
@@ -60,4 +60,4 @@ const Player = (props) => {
   )
 }
 
-export default Player;
+export default SDK;
