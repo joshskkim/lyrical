@@ -11,9 +11,9 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env', '@babel/preset-react']
-          }
-        }
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+          },
+        },
       },
       {
         test: /\.css$/i,
@@ -24,9 +24,9 @@ module.exports = {
             loader: 'css-loader',
             options: {
               modules: true,
-            }
-          }
-        ]
+            },
+          },
+        ],
       },
       {
         test: /\.(jpe?g|png|gif)$/,
@@ -48,8 +48,8 @@ module.exports = {
         options: {
           name: '[path][name].[hash].[ext]',
         },
-    },
-    ]
+      },
+    ],
   },
   optimization: {
     concatenateModules: true,
@@ -60,4 +60,4 @@ module.exports = {
     path: path.resolve(__dirname, 'public/dist'),
     filename: 'bundle.js',
   },
-}
+};
