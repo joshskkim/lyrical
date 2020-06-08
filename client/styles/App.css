@@ -54,6 +54,11 @@ body {
   margin: 0 auto;
 }
 
+.login {
+  position: absolute;
+  margin-top:10px;
+}
+
 .btn:hover {
   background: #1ecd97;
   color: white;
