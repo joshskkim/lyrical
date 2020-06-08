@@ -62,7 +62,7 @@ const Player = (props) => {
           {showTime(item.duration_ms)}
         </div>
       </div>
-      <div className="background" style={backgroundStyles} />{" "}
+      <div className={style.background} style={backgroundStyles} />{" "}
       <div className="lyrics" style={ {'whiteSpace':'pre-wrap'} }>
         {showLyrics()}
       </div>

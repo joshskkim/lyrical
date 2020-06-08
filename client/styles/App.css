@@ -1,3 +1,25 @@
+/* GLOBAL STYLES */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #333;
+  color: #eee;
+  font-family: Helvetica, Arial;
+  font-size: 3vmin;
+}
+
+/* BACKGROUND */
+.main {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  flex: 1;
+}
 
 /* BUTTONS */
 .btn {
@@ -15,5 +37,5 @@
 
 .btn:hover {
   background: #1ecd97;
-  color: #333;
+  color: white;
 }

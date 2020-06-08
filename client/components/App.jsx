@@ -106,7 +106,7 @@ const App = (props) => {
   const { login, refresh, item, is_playing, progress_ms } = config;
 
   return (
-    <div className="App">
+    <div className={style.main}>
       {!login && (
         <a href="/login">
           <button className={style.btn}>
