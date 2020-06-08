@@ -35,7 +35,6 @@ const Player = (props) => {
         currentLyrics =`${lyrics[i].substring(10)}\n${lyrics[i + 1].substring(10)}\n${lyrics[i + 2].substring(10)}\n`;
       }
     }
-    console.log(currentLyrics);
     return currentLyrics;
   }
 
@@ -64,7 +63,7 @@ const Player = (props) => {
         </div>
       </div>
       <div className="background" style={backgroundStyles} />{" "}
-      <div className="lyrics" style={ {'white-space':'pre-wrap'} }>
+      <div className="lyrics" style={ {'whiteSpace':'pre-wrap'} }>
         {showLyrics()}
       </div>
     </div>

@@ -3,7 +3,7 @@ import Script from 'react-load-script';
 import axios from 'axios';
 
 const SDK = (props) => {
-  const { token, uri } = props;
+  const { token, uri, play } = props;
 
   const handleLoad = () => {
     window.onSpotifyWebPlaybackSDKReady = () => {
@@ -24,7 +24,7 @@ const SDK = (props) => {
       // Ready
       player.addListener('ready', ({ device_id }) => {
         console.log('Ready with Device ID', device_id);
-        play(device_id);
+        play(device_id, token, uri);
       });
 
       // Not Ready
@@ -54,16 +54,6 @@ const SDK = (props) => {
 
   const handleError = () => {
     console.log('Error with script');
-  }
-
-  const play = (id) => {
-    const url = 'https://api.spotify.com/v1/me/player/play?device_id='.concat(id);
-    const authStr = 'Bearer '.concat(token);
-    axios.put(url, JSON.stringify({ uris: [uri]}), {
-      headers: {
-        'Authorization': authStr
-      },
-    })
   }
 
   return (

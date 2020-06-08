@@ -40,6 +40,23 @@ const App = (props) => {
     return hashParams;
   }
 
+  const handlePlay = (e) => {
+    const authStr = 'Bearer '.concat(login);
+    const getDeviceId = async() => {
+      const device = await axios.get('https://api.spotify.com/v1/me/player/devices', {
+        headers: {
+          'Authorization': authStr
+        }
+      });
+      const { data } = device;
+      console.log(data);
+      const devid = data.devices[0].id;
+      play(devid, login, item.uri);
+    }
+
+    getDeviceId();
+  }
+
   const handleRefresh = (e) => {
     const getToken = async() => {
       const res = await axios.get('/refresh_token', { 'refresh_token': refresh });
@@ -48,6 +65,16 @@ const App = (props) => {
         login: newToken,
       })
     }
+  }
+
+  const play = (id, token, uri) => {
+    const url = 'https://api.spotify.com/v1/me/player/play?device_id='.concat(id);
+    const authStr = 'Bearer '.concat(token);
+    axios.put(url, JSON.stringify({ uris: [uri]}), {
+      headers: {
+        'Authorization': authStr
+      },
+    })
   }
 
   useEffect(() => {
@@ -87,27 +114,33 @@ const App = (props) => {
           </button>
         </a>
       )}
+      <button
+        onClick={handlePlay}
+      >
+        Play
+      </button>
       {(login && item) && (
         <div>
           <header>
             <SDK
               token={login}
               uri={item.uri}
+              play={play}
             />
           </header>
+          {item && (
+            <Player
+              item={item}
+              is_playing={is_playing}
+              progress_ms={progress_ms}
+              lyrics={lyrics}
+            />
+          )}
           <button
             onClick={handleRefresh}
           >
             Refresh Token
           </button>
-          {item && (
-          <Player
-            item={item}
-            is_playing={is_playing}
-            progress_ms={progress_ms}
-            lyrics={lyrics}
-          />
-          )}
         </div>
       )}
     </div>
