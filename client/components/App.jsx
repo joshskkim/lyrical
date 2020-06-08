@@ -5,14 +5,15 @@ import "regenerator-runtime/runtime.js";
 import SDK from './SDK.jsx';
 import Player from './Player.jsx';
 
-const App = () => {
+const App = (props) => {
   const [config, setConfig] = useState({
     login: '',
     refresh: '',
     item: {},
     is_playing: '',
-    progress_ms: 0
+    progress_ms: 0,
   })
+  const { lyrics } = props;
 
   const getNowPlaying = async(token) => {
     const authStr = 'Bearer '.concat(token);
@@ -34,7 +35,7 @@ const App = () => {
        hashParams[e[1]] = decodeURIComponent(e[2]);
     }
 
-    window.location.hash = '';
+    // window.location.hash = '';
 
     return hashParams;
   }
@@ -52,6 +53,7 @@ const App = () => {
   useEffect(() => {
     let hash = getHashParams();
     let loginToken = hash.access_token;
+
     const updateConfig = async() => {
       const res = await getNowPlaying(loginToken);
       setConfig({
@@ -59,7 +61,7 @@ const App = () => {
         refresh: hash.refresh_token,
         item: res.item,
         is_playing: res.is_playing,
-        progress_ms: res.progress_ms
+        progress_ms: res.progress_ms,
       });
     }
 
@@ -70,7 +72,7 @@ const App = () => {
 
     const id = setInterval(() => {
       updateConfig();
-    }, 1000);
+    }, 500);
     return () => clearInterval(id);
   }, []);
 
@@ -103,6 +105,7 @@ const App = () => {
             item={item}
             is_playing={is_playing}
             progress_ms={progress_ms}
+            lyrics={lyrics}
           />
           )}
         </div>

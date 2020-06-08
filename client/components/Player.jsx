@@ -1,9 +1,8 @@
 import React from 'react';
 import style from '../styles/Player.css';
-import axios from 'axios';
 
 const Player = (props) => {
-  const { item, is_playing, progress_ms } = props;
+  const { item, is_playing, progress_ms, lyrics } = props;
 
   const backgroundStyles = {
     backgroundImage:`url(${item.album.images[0].url})`,
@@ -19,12 +18,26 @@ const Player = (props) => {
     return `${min}:${sec < 10 ? '0': ''}${sec}`;
   }
 
-  const getLyrics = (e) => {
-    axios.get('/lyrics')
-      .then((data) => {
-        console.log(data);
-      })
-  };
+  const toMS = (str) => {
+    const msArr = str.split(':');
+    const min = parseInt(msArr[0]) * 60000;
+    const sec = parseInt(msArr[1]) * 1000;
+    return min + sec;
+  }
+
+  const showLyrics = () => {
+    let currentLyrics = '';
+    let i, end = lyrics.length;
+    for (i = 0; i < end; i += 1) {
+      if (toMS(lyrics[i].substring(2, 6)) <= progress_ms){
+        // console.log(lyrics[i].substring(2, 6), showTime(progress_ms));
+        currentLyrics = lyrics[i].substring(10) + '\n' + lyrics[i + 1].substring(10) + '\n' + lyrics[i + 2].substring(10) + '\n';
+        // console.log(currentLyrics);
+      }
+    }
+    console.log(currentLyrics);
+    return currentLyrics;
+  }
 
   return (
     <div className={style.mainWrapper}>
@@ -51,11 +64,9 @@ const Player = (props) => {
         </div>
       </div>
       <div className="background" style={backgroundStyles} />{" "}
-      <button
-        onClick={getLyrics}
-      >
-        Show Lyrics
-      </button>
+      <div className="lyrics" style={ {'white-space':'pre-wrap'} }>
+        {showLyrics()};
+      </div>
     </div>
   );
 }
