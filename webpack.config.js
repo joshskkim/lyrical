@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   entry: './client/index.jsx',
   module: {
     rules: [
@@ -44,11 +44,11 @@ module.exports = {
       },
     ]
   },
-  // optimization: {
-  //   concatenateModules: true,
-  //   nodeEnv: 'production',
-  //   minimize: true,
-  // },
+  optimization: {
+    concatenateModules: true,
+    nodeEnv: 'production',
+    minimize: true,
+  },
   output: {
     path: path.resolve(__dirname, 'public/dist'),
     filename: 'bundle.js',
