@@ -9,10 +9,11 @@ const querystring = require('querystring');
 const request = require('request');
 
 // MUSIXMATCH AUTH
-const mm = require('./mm.js');
+// const mm = require('./mm.js');
 
 // SPOTIFY AUTHENTICATION VARIABLES
 const { client_id, client_secret } = require('./spotify.js');
+
 const redirect_uri = 'http://localhost:9010/callback';
 const stateKey = 'spotify_auth_state';
 
@@ -25,7 +26,7 @@ const generateRandomString = (length) => {
     text += possible.charAt(Math.floor(Math.random() * possible.length));
   }
   return text;
-}
+};
 
 // MIDDLEWARE
 const app = express();
@@ -135,6 +136,7 @@ app.get('/refresh_token', (req, res) => {
     }
   });
 });
+
 
 // MVP local subtitle route
 app.get('/lyrics', (req, res) => {

@@ -4,22 +4,21 @@ import axios from 'axios';
 import App from './components/App.jsx';
 
 
-const getLyrics = async() => {
+const getLyrics = async () => {
   try {
     const res = await axios.get('/lyrics');
     return res.data.split('\n');
   } catch (error) {
     console.error(error);
   }
-}
+};
 
 let lyrics;
 
-const wait = async() => {
+const wait = async () => {
   lyrics = await getLyrics();
-}
+};
 
 wait().then(() => {
-  render(<App lyrics={lyrics}/>, document.getElementById('app'));
+  render(<App lyrics={lyrics} />, document.getElementById('app'));
 });
-
