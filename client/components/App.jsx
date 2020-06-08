@@ -127,7 +127,7 @@ const App = (props) => {
             <button
               className={style.btn}
               onClick={handlePlay}
-              >
+            >
               Play
             </button>
             <div className={style.divider} />
