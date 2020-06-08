@@ -129,6 +129,12 @@ const App = (props) => {
           >
             Play
           </button>
+          <button
+          className={style.btn}
+            onClick={handleRefresh}
+          >
+            Refresh Token
+          </button>
           {item && (
             <Player
               item={item}
@@ -137,12 +143,6 @@ const App = (props) => {
               lyrics={lyrics}
             />
           )}
-          <button
-          className={style.btn}
-            onClick={handleRefresh}
-          >
-            Refresh Token
-          </button>
         </div>
       )}
     </div>
