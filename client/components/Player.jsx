@@ -53,17 +53,18 @@ const Player = (props) => {
         <div className={style.nowPlaying_status}>
           {is_playing ? "Playing" : "Paused"}
         </div>
+        <div className={style.timer}>
+          {showTime(progress_ms)} / {showTime(item.duration_ms)}
+        </div>
         <div className={style.progress}>
-          {showTime(progress_ms)}
           <div
             className={style.progress_bar}
             style={progressBarStyles}
           />
-          {showTime(item.duration_ms)}
         </div>
       </div>
       <div className={style.background} style={backgroundStyles} />{" "}
-      <div className="lyrics" style={ {'whiteSpace':'pre-wrap'} }>
+      <div className={style.lyrics} style={ {'whiteSpace':'pre-wrap'} }>
         {showLyrics()}
       </div>
     </div>
