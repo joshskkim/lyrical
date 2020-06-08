@@ -115,3 +115,6 @@ spotify.js
 
 # Subtitles
 *.lrc
+
+# logo
+*.svg
