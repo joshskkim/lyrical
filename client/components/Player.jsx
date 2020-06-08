@@ -1,5 +1,6 @@
 import React from 'react';
 import style from '../styles/Player.css';
+import axios from 'axios';
 
 const Player = (props) => {
   const { item, is_playing, progress_ms } = props;
@@ -17,6 +18,13 @@ const Player = (props) => {
     const sec = ((ms % 60000) / 1000).toFixed(0);
     return `${min}:${sec < 10 ? '0': ''}${sec}`;
   }
+
+  const getLyrics = (e) => {
+    axios.get('/lyrics')
+      .then((data) => {
+        console.log(data);
+      })
+  };
 
   return (
     <div className={style.mainWrapper}>
@@ -43,6 +51,11 @@ const Player = (props) => {
         </div>
       </div>
       <div className="background" style={backgroundStyles} />{" "}
+      <button
+        onClick={getLyrics}
+      >
+        Show Lyrics
+      </button>
     </div>
   );
 }
