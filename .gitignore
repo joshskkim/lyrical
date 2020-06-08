@@ -112,3 +112,6 @@ dist
 # Keys
 mm.js
 spotify.js
+
+# Subtitles
+*.lrc
