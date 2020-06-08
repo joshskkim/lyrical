@@ -42,6 +42,13 @@ module.exports = {
         // This will apply the loader before the other ones
         enforce: 'pre',
       },
+      {
+        test: /\.(jpg|png|svg)$/,
+        loader: 'file-loader',
+        options: {
+          name: '[path][name].[hash].[ext]',
+        },
+    },
     ]
   },
   optimization: {
