@@ -1,11 +1,15 @@
-// const bodyParser = require('body-parser');
-// const compression = require('compression');
+const bodyParser = require('body-parser');
+const compression = require('compression');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const express = require('express');
+const fs = require('fs');
 const path = require('path');
 const querystring = require('querystring');
 const request = require('request');
+
+// MUSIXMATCH AUTH
+const mm = require('./mm.js');
 
 // SPOTIFY AUTHENTICATION VARIABLES
 const { client_id, client_secret } = require('./spotify.js');
@@ -28,9 +32,9 @@ const app = express();
 
 app.use(express.static(path.join(__dirname, '../public/')))
    .use(cors())
-  //  .use(compression())
-  //  .use(bodyParser.urlencoded({ extended: true }))
-  //  .use(bodyParser.json())
+   .use(compression())
+   .use(bodyParser.urlencoded({ extended: true }))
+   .use(bodyParser.json())
    .use(cookieParser());
 
 // LOGIN ROUTE
@@ -89,7 +93,7 @@ app.get('/callback', (req, res) => {
         };
 
         // use the access token to access the Spotify Web API
-        request.get(options, function(error, response, body) {
+        request.get(options, (error, response, body) => {
           console.log(body);
         });
 
@@ -131,5 +135,41 @@ app.get('/refresh_token', (req, res) => {
     }
   });
 });
+
+// MVP local subtitle route
+app.get('/lyrics', (req, res) => {
+  const subPath = path.resolve('Justin-Bieber-Sorry.lrc')
+  fs.readFile(subPath, (err, data) => {
+    res.send(data.toString());
+  });
+})
+
+// musiXmatch routes
+// // GET TRACK ID
+// app.get('/lyrics/:title/:artist', (req, res) => {
+//   const { title, artist } = req.params;
+//   const url = `http://api.musixmatch.com/ws/1.1/matcher.track.get?q_track=${title}&q_artist=${artist}&apikey=${mm}`;
+//   request.get(url, (error, response, body) => {
+//     if(!error && response.statusCode === 200) {
+//       const resp = JSON.parse(response.body);
+//       const id = resp.message.body.track.track_id;
+//       res.json(id);
+//     }
+//   })
+// })
+
+// // GET SUBTITLES
+// app.get('/subtitles/:id', (req, res) => {
+//   const { id } = req.params;
+//   const url = `http://api.musixmatch.com/ws/1.1/track.subtitle.translation.get?commontrack_id=10074988&selected_language=en&apikey=${mm}`;
+//   request.get(url, (error, response, body) => {
+//     if(!error && response.statusCode === 200) {
+//       const resp = JSON.parse(response.body);
+//       console.log(resp);
+//     } else {
+//       console.error('ERR:', error);
+//     }
+//   })
+// })
 
 module.exports = app;
