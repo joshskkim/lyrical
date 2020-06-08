@@ -52,8 +52,23 @@
   border: 1px solid #eee;
   border-radius: 3px;
   overflow: hidden;
+  padding-right: 3em;
 }
 .progress_bar {
   background-color: black;
   height: 4px;
+}
+
+.timer {
+  float: right;
+  font-size: 0.7em;
+  position: relative;
+}
+
+/* LYRICS */
+.lyrics {
+  position: absolute;
+  top: 200px;
+  padding-top: 50px;
+  bottom: 0;
 }
