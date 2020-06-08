@@ -123,18 +123,21 @@ const App = (props) => {
               play={play}
             />
           </header>
-          <button
+          <div className={style.btn_container}>
+            <button
+              className={style.btn}
+              onClick={handlePlay}
+              >
+              Play
+            </button>
+            <div className={style.divider} />
+            <button
             className={style.btn}
-            onClick={handlePlay}
-          >
-            Play
-          </button>
-          <button
-          className={style.btn}
             onClick={handleRefresh}
-          >
-            Refresh Token
-          </button>
+            >
+              Refresh Token
+            </button>
+          </div>
           {item && (
             <Player
               item={item}
