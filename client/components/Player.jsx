@@ -29,10 +29,10 @@ const Player = (props) => {
     let currentLyrics = '';
     let i, end = lyrics.length;
     for (i = 0; i < end; i += 1) {
-      if (toMS(lyrics[i].substring(2, 6)) <= progress_ms){
-        // console.log(lyrics[i].substring(2, 6), showTime(progress_ms));
-        currentLyrics = lyrics[i].substring(10) + '\n' + lyrics[i + 1].substring(10) + '\n' + lyrics[i + 2].substring(10) + '\n';
-        // console.log(currentLyrics);
+      if (progress_ms <= 9000) {
+        currentLyrics = '';
+      } else if (toMS(lyrics[i].substring(2, 6)) <= progress_ms){
+        currentLyrics =`${lyrics[i].substring(10)}\n${lyrics[i + 1].substring(10)}\n${lyrics[i + 2].substring(10)}\n`;
       }
     }
     console.log(currentLyrics);
@@ -42,7 +42,7 @@ const Player = (props) => {
   return (
     <div className={style.mainWrapper}>
       <div className={style.nowPlaying_img}>
-        <img src={item.album.images[0].url} />
+        <img src={item.album.images[1].url} />
       </div>
       <div className={style.nowPlaying_side}>
         <div className={style.nowPlaying_name}>
@@ -65,7 +65,7 @@ const Player = (props) => {
       </div>
       <div className="background" style={backgroundStyles} />{" "}
       <div className="lyrics" style={ {'white-space':'pre-wrap'} }>
-        {showLyrics()};
+        {showLyrics()}
       </div>
     </div>
   );
