@@ -4,7 +4,7 @@ import axios from 'axios';
 import "regenerator-runtime/runtime.js";
 import SDK from './SDK.jsx';
 import Player from './Player.jsx';
-import logo from '../logo.svg';
+// import logo from './dist/logo.svg';
 import style from '../styles/App.css';
 
 const App = (props) => {
@@ -108,7 +108,7 @@ const App = (props) => {
 
   return (
     <div className={style.main}>
-      <img src={logo} className={style.applogo} alt="logo" />
+      <img src='./logo.svg' className={style.applogo} alt="logo" />
       {!login && (
         <a href="/login">
           <button className={style.btn}>
