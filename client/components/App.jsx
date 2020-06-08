@@ -4,6 +4,7 @@ import axios from 'axios';
 import "regenerator-runtime/runtime.js";
 import SDK from './SDK.jsx';
 import Player from './Player.jsx';
+import style from '../styles/App.css';
 
 const App = (props) => {
   const [config, setConfig] = useState({
@@ -49,7 +50,6 @@ const App = (props) => {
         }
       });
       const { data } = device;
-      console.log(data);
       const devid = data.devices[0].id;
       play(devid, login, item.uri);
     }
@@ -109,16 +109,11 @@ const App = (props) => {
     <div className="App">
       {!login && (
         <a href="/login">
-          <button>
+          <button className={style.btn}>
             Login to Spotify
           </button>
         </a>
       )}
-      <button
-        onClick={handlePlay}
-      >
-        Play
-      </button>
       {(login && item) && (
         <div>
           <header>
@@ -128,6 +123,12 @@ const App = (props) => {
               play={play}
             />
           </header>
+          <button
+            className={style.btn}
+            onClick={handlePlay}
+          >
+            Play
+          </button>
           {item && (
             <Player
               item={item}
@@ -137,6 +138,7 @@ const App = (props) => {
             />
           )}
           <button
+          className={style.btn}
             onClick={handleRefresh}
           >
             Refresh Token

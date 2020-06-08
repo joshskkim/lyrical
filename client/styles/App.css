@@ -1,0 +1,19 @@
+
+/* BUTTONS */
+.btn {
+  background-color: transparent;
+  border-radius: 2em;
+  border: 0.2em solid #1ecd97;
+  color: #1ecd97;
+  cursor: pointer;
+  font-size: 1.5vmin;
+  padding: 0.5em 1em;
+  text-transform: uppercase;
+  transition: all 0.25s ease;
+  margin: 0 auto;
+}
+
+.btn:hover {
+  background: #1ecd97;
+  color: #333;
+}
