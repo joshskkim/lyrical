@@ -32,11 +32,11 @@ const generateRandomString = (length) => {
 const app = express();
 
 app.use(express.static(path.join(__dirname, '../public/')))
-   .use(cors())
-   .use(compression())
-   .use(bodyParser.urlencoded({ extended: true }))
-   .use(bodyParser.json())
-   .use(cookieParser());
+  .use(cors())
+  .use(compression())
+  .use(bodyParser.urlencoded({ extended: true }))
+  .use(bodyParser.json())
+  .use(cookieParser());
 
 // LOGIN ROUTE
 app.get('/login', (req, res) => {
