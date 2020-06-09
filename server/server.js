@@ -140,11 +140,11 @@ app.get('/refresh_token', (req, res) => {
 
 // MVP local subtitle route
 app.get('/lyrics', (req, res) => {
-  const subPath = path.resolve('Justin-Bieber-Sorry.lrc')
+  const subPath = path.resolve('Justin-Bieber-Sorry.lrc');
   fs.readFile(subPath, (err, data) => {
     res.send(data.toString());
   });
-})
+});
 
 // musiXmatch routes
 // // GET TRACK ID

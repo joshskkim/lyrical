@@ -129,7 +129,7 @@ const App = (props) => {
 
     const id = setInterval(() => {
       updateConfig();
-    }, 500);
+    }, 250);
     return () => clearInterval(id);
   }, []);
 

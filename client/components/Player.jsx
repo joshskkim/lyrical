@@ -32,7 +32,7 @@ const Player = (props) => {
       if (progress_ms <= 1000) {
         currentLyrics = '';
       } else if (toMS(lyrics[i].substring(2, 6)) <= progress_ms) {
-        currentLyrics =`${lyrics[i].substring(10)}\n${lyrics[i + 1].substring(10)}\n${lyrics[i + 2].substring(10)}\n`;
+        currentLyrics = `${lyrics[i].substring(10)}\n${lyrics[i + 1].substring(10)}\n${lyrics[i + 2].substring(10)}\n`;
       }
     }
     return currentLyrics;
