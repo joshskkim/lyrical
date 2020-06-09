@@ -29,7 +29,7 @@ const Player = (props) => {
     let currentLyrics = '';
     let i, end = lyrics.length;
     for (i = 0; i < end; i += 1) {
-      if (progress_ms <= 9000) {
+      if (progress_ms <= 1000) {
         currentLyrics = '';
       } else if (toMS(lyrics[i].substring(2, 6)) <= progress_ms) {
         currentLyrics =`${lyrics[i].substring(10)}\n${lyrics[i + 1].substring(10)}\n${lyrics[i + 2].substring(10)}\n`;

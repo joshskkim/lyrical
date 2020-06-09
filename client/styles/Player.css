@@ -69,8 +69,8 @@
 
 /* LYRICS */
 .lyrics {
-  position: absolute;
-  top: 200px;
+  position: relative;
+  top: 250px;
   padding-top: 50px;
   bottom: 0;
 }
