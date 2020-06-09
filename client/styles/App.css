@@ -55,8 +55,12 @@ body {
 }
 
 .login {
-  position: absolute;
+  position: relative;
   margin-top:10px;
+}
+
+.logincontainer {
+  position: absolute;
 }
 
 .btn:hover {
@@ -69,6 +73,7 @@ body {
   justify-content: center;
   align-items: center;
   padding-bottom: 10px;
+  padding-top: 10px;
 }
 
 .divider {
