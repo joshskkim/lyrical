@@ -1,5 +1,6 @@
 # lyrical
 This app integrates the Spotify Web Player to play your music and display synced lyrics.
+![Demo](mvpdemo.gif)
 
 * AUTHORIZATION:
 Utilize Spotify authorization flow to connect to your account.
