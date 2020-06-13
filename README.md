@@ -2,7 +2,9 @@
 This app integrates the Spotify Web Player to play your music and display synced lyrics.
 
 * AUTHORIZATION:
-Utilize Spotify authorization flow to connect to your account
+Utilize Spotify authorization flow to connect to your account.
+Simply press Login to Spotify!
+![Login Screen](loginmvp.gif)
 
 * LYRICS:
 Display lyrics based on timestamps!
