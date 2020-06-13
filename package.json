@@ -8,7 +8,7 @@
   "description": "Real time lyric music player",
   "main": "index.js",
   "scripts": {
-    "build": "webpack -config webpack.config.js --display-error-details",
+    "build": "webpack --config webpack.config.js --display-error-details",
     "build-watch": "webpack --config webpack.config.js -w",
     "start": "nodemon server/index.js -i client"
   },

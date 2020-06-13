@@ -3,10 +3,6 @@ const path = require('path');
 module.exports = {
   mode: 'production',
   entry: './client/index.jsx',
-  output: {
-    path: path.resolve(__dirname, 'public/dist'),
-    filename: 'bundle.js',
-  },
   module: {
     rules: [
       {
@@ -54,6 +50,10 @@ module.exports = {
         },
       },
     ],
+  },
+  output: {
+    path: path.resolve(__dirname, 'public/dist'),
+    filename: 'bundle.js',
   },
   optimization: {
     concatenateModules: true,
