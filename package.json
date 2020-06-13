@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "engines": {
     "node": "12.14.1",
-    "npm": "6.13"
+    "npm": "6.13.4"
   },
   "description": "Real time lyric music player",
   "main": "index.js",
