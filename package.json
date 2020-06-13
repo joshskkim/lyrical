@@ -1,6 +1,9 @@
 {
   "name": "lyrical",
   "version": "1.0.0",
+  "engines": {
+    "node": "12.14.1"
+  },
   "description": "Real time lyric music player",
   "main": "index.js",
   "scripts": {
