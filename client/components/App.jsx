@@ -135,7 +135,7 @@ const App = (props) => {
 
   return (
     <div className={style.main}>
-      <img src="./logo.svg" className={style.applogo} alt="logo" />
+      <img src="./logo.png" className={style.applogo} alt="logo" />
       {!login && (
         <a href="/login" className={style.logincontainer}>
           <button type="button" className={`${style.login} ${style.btn}`}>
